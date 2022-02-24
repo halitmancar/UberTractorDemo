@@ -5,9 +5,7 @@ import com.example.ubertractor.business.requests.account.CreateFarmerAccountRequ
 import com.example.ubertractor.business.requests.account.LoginRequest;
 import com.example.ubertractor.core.utilities.businessrule.BusinessRules;
 import com.example.ubertractor.core.utilities.mapping.ModelMapperService;
-import com.example.ubertractor.core.utilities.results.ErrorResult;
-import com.example.ubertractor.core.utilities.results.Result;
-import com.example.ubertractor.core.utilities.results.SuccessResult;
+import com.example.ubertractor.core.utilities.results.*;
 import com.example.ubertractor.dataAccess.account.FarmerAccountDao;
 import com.example.ubertractor.entities.account.FarmerAccount;
 import org.hibernate.annotations.CreationTimestamp;
@@ -53,6 +51,12 @@ public class FarmerAccountManager implements FarmerAccountService {
         return new SuccessResult("Giriş başarılı!");
     }
 
+    @Override
+    public DataResult<FarmerAccount> getAccByPN(String phoneNumber) {
+        FarmerAccount acc = this.farmerAccountDao.getByPhoneNumber(phoneNumber);
+        return new SuccessDataResult<FarmerAccount>(acc);
+    }
+
     private Result checkAccountByPassword(LoginRequest loginRequest) {
         FarmerAccount account = this.farmerAccountDao.getByPhoneNumber(loginRequest.getPhoneNumber());
         if (account != null) {
@@ -69,6 +73,13 @@ public class FarmerAccountManager implements FarmerAccountService {
             return new SuccessResult();
         }
         return new ErrorResult("Bu telefon numarası ile daha önce kayıt oluşturulmuş!");
+    }
+
+    private Result checkIfPNExists(String phoneNumber){
+        if (this.farmerAccountDao.existsByPhoneNumber(phoneNumber)){
+            return new SuccessResult();
+        }
+        return new ErrorResult("Bu telefon numarası ile kayıtlı bir kullanıcı bulunamadı!");
     }
 
 }

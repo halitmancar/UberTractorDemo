@@ -5,10 +5,7 @@ import com.example.ubertractor.business.requests.account.CreateFarmerAccountRequ
 import com.example.ubertractor.business.requests.account.LoginRequest;
 import com.example.ubertractor.core.utilities.results.Result;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -30,4 +27,12 @@ public class FarmerAccountController {
     public Result login(@RequestBody @Valid LoginRequest loginRequest){
         return this.farmerAccountService.login(loginRequest);
     }
+    @GetMapping("/getNameByPN")
+    public String getNameByPN(@RequestParam String phoneNumber){
+        if (this.farmerAccountService.getAccByPN(phoneNumber).getData() == null) {
+            return "Bu telefon numarası ile kayıtlı bir kullanıcı bulunamadı!";
+        }
+        return this.farmerAccountService.getAccByPN(phoneNumber).getData().getFullName();
+    }
+
 }
