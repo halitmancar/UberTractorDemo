@@ -12,6 +12,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -55,6 +56,12 @@ public class FarmerAccountManager implements FarmerAccountService {
     public DataResult<FarmerAccount> getAccByPN(String phoneNumber) {
         FarmerAccount acc = this.farmerAccountDao.getByPhoneNumber(phoneNumber);
         return new SuccessDataResult<FarmerAccount>(acc);
+    }
+
+    @Override
+    public DataResult<List<FarmerAccount>> getAll() {
+        List<FarmerAccount> list = this.farmerAccountDao.findAll();
+        return new SuccessDataResult<List<FarmerAccount>>(list);
     }
 
     private Result checkAccountByPassword(LoginRequest loginRequest) {

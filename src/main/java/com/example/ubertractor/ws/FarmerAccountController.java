@@ -4,10 +4,12 @@ import com.example.ubertractor.business.abstracts.account.FarmerAccountService;
 import com.example.ubertractor.business.requests.account.CreateFarmerAccountRequest;
 import com.example.ubertractor.business.requests.account.LoginRequest;
 import com.example.ubertractor.core.utilities.results.Result;
+import com.example.ubertractor.entities.account.FarmerAccount;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/account")
@@ -34,5 +36,10 @@ public class FarmerAccountController {
         }
         return this.farmerAccountService.getAccByPN(phoneNumber).getData().getFullName();
     }
+    @GetMapping("/getAll")
+    public List<FarmerAccount> getAll(){
+        return this.farmerAccountService.getAll().getData();
+    }
+
 
 }

@@ -6,8 +6,11 @@ import com.example.ubertractor.core.utilities.results.DataResult;
 import com.example.ubertractor.core.utilities.results.Result;
 import com.example.ubertractor.entities.account.FarmerAccount;
 
+import java.util.List;
+
 public interface FarmerAccountService {
     Result add(CreateFarmerAccountRequest createFarmerAccountRequest);
     Result login(LoginRequest loginRequest);
     DataResult<FarmerAccount> getAccByPN(String phoneNumber);
+    DataResult<List<FarmerAccount>> getAll();
 }
