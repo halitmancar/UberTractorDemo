@@ -11,7 +11,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="UberTractor" target="11" />
+      <module name="UberTractor" target="1.6" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
